@@ -931,120 +931,6 @@ input, select, textarea { font-size: 16px !important; font-family: var(--font-bo
 #ag-grafico-anual canvas { max-height:160px; }
 
 .bloco-cost .input-field.has-suffix { padding-right:76px; }
-
-/* ============================================================
-   RESPONSIVE — TABLET + DESKTOP
-   Regra 5: Camadas independentes — só visual muda aqui
-   ============================================================ */
-
-/* Sidebar base: oculto em mobile, exibido em desktop via media query */
-.desktop-sidebar { display: none; }
-
-.sidebar-nav-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 11px 14px; border-radius: 12px;
-  background: none; border: none; cursor: pointer;
-  font-family: var(--font-display); font-size: 12px;
-  font-weight: 700; text-transform: uppercase;
-  letter-spacing: .05em; color: var(--txt3);
-  transition: background .2s, color .2s; width: 100%; text-align: left;
-}
-.sidebar-nav-btn:hover { background: var(--surface2); color: var(--txt); }
-.sidebar-nav-btn.active { background: rgba(37,99,235,.1); color: var(--accent); }
-.sidebar-nav-btn.active-agenda { background: rgba(249,115,22,.1); color: var(--accent2); }
-.sidebar-nav-btn.active-historico { background: rgba(168,85,247,.1); color: #a855f7; }
-.sidebar-nav-icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; line-height: 1; }
-
-/* ---- TABLET: 768px ---- */
-@media (min-width: 768px) {
-  .app-card { max-width: 680px; }
-  .bottom-nav { max-width: 680px; }
-  .app-body { padding: 20px 20px calc(env(safe-area-inset-bottom) + 80px); }
-}
-
-/* ---- DESKTOP: 1024px ---- */
-@media (min-width: 1024px) {
-  body { overflow: hidden; }
-
-  .app-shell {
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: center;
-    max-width: 1060px;
-    margin: 0 auto;
-    padding: 0;
-    height: 100dvh;
-    overflow: hidden;
-    min-height: unset;
-  }
-
-  /* Sidebar desktop visível */
-  .desktop-sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 210px;
-    flex-shrink: 0;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    height: 100dvh;
-    overflow: hidden;
-    transition: background .3s, border-color .3s;
-    z-index: 50;
-  }
-  .dsb-logo {
-    padding: 18px 16px 14px;
-    border-bottom: 1px solid var(--border);
-    background: var(--header-bg);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-  .dsb-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 12px 10px;
-    gap: 3px;
-    overflow-y: auto;
-  }
-  .dsb-footer {
-    padding: 10px;
-    border-top: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-
-  /* App card ocupa o resto */
-  .app-card {
-    flex: 1;
-    max-width: none;
-    min-height: unset;
-    height: 100dvh;
-    border-radius: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    overflow: hidden;
-    border-left: 1px solid var(--border) !important;
-  }
-
-  /* Body sem padding de bottom-nav */
-  .app-body {
-    padding-bottom: 28px;
-  }
-
-  /* Bottom nav oculta no desktop */
-  .bottom-nav { display: none !important; }
-
-  /* Modal maior no desktop */
-  .modal-sheet { max-width: 680px; }
-}
-
-/* ---- LARGE DESKTOP: 1280px ---- */
-@media (min-width: 1280px) {
-  .app-shell { max-width: 1200px; }
-  .desktop-sidebar { width: 230px; }
-}
-
 @media print {
   body * { visibility: hidden; }
   #printable-area, #printable-area * { visibility: visible; }
@@ -1089,39 +975,6 @@ input, select, textarea { font-size: 16px !important; font-family: var(--font-bo
 </head>
 <body>
 <div class="app-shell">
-
-<!-- DESKTOP SIDEBAR — oculto em mobile via CSS, exibido em 1024px+ -->
-<aside class="desktop-sidebar">
-  <div class="dsb-logo">
-    <div id="dsb-logo-area" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;display:none;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12);flex-shrink:0">
-      <img id="dsb-logo-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="width:100%;height:100%;object-fit:contain" alt="Logo">
-    </div>
-    <div>
-      <div style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:4px"><span class="bolt-pulse">⚡</span> elétrica</div>
-      <div style="font-family:var(--font-display);font-size:13px;font-weight:800;color:#f1f5f9;letter-spacing:.04em;line-height:1.15">ELETRICISTA <span style="color:var(--accent)">POWER</span></div>
-    </div>
-  </div>
-  <nav class="dsb-nav">
-    <button class="sidebar-nav-btn active" id="snav-home" onclick="switchMainTab('home')">
-      <span class="sidebar-nav-icon">🏠</span><span>Início</span>
-    </button>
-    <button class="sidebar-nav-btn" id="snav-orcamento" onclick="switchMainTab('orcamento')">
-      <span class="sidebar-nav-icon">⚡</span><span>Orçamento</span>
-    </button>
-    <button class="sidebar-nav-btn" id="snav-agenda" onclick="switchMainTab('agenda')">
-      <span class="sidebar-nav-icon">📅</span><span>Agenda</span>
-    </button>
-    <button class="sidebar-nav-btn" id="snav-historico" onclick="switchMainTab('historico')">
-      <span class="sidebar-nav-icon" style="position:relative">🕐<span id="alertDotSidebar" class="alert-dot" style="top:-2px;right:-2px"></span></span><span>Histórico</span>
-    </button>
-  </nav>
-  <div class="dsb-footer">
-    <button class="sidebar-nav-btn" onclick="openSettings()">
-      <span class="sidebar-nav-icon">⚙️</span><span>Ajustes</span>
-    </button>
-  </div>
-</aside>
-
 <div class="app-card">
 
 <header class="app-header">
@@ -1786,10 +1639,14 @@ input, select, textarea { font-size: 16px !important; font-family: var(--font-bo
       </div>
       <div class="settings-section" style="border:none">
         <div class="settings-section-title">🎁 Parceiros</div>
-        <a href="https://beacons.ai/josetecinstalation/eletronicos" target="_blank" class="affiliate-btn">
+        <a href="https://collshp.com/jose_o_souza271?view=storefront" target="_blank" class="affiliate-btn">
           🎁 OFERTAS DA SEMANA ↗
         </a>
         <p style="font-size:11px;color:var(--txt3);text-align:center;margin-top:8px;line-height:1.5">Materiais e equipamentos com preços especiais para eletricistas</p>
+        <a href="https://eletricistapro.com.br/" target="_blank" class="affiliate-btn" style="margin-top:10px;background:linear-gradient(135deg,#2563eb,#1d4ed8);box-shadow:0 4px 18px rgba(37,99,235,.35)">
+          📱 VER TODOS OS APPs ↗
+        </a>
+        <p style="font-size:11px;color:var(--txt3);text-align:center;margin-top:8px;line-height:1.5">Acesse todos os apps disponíveis para eletricistas</p>
       </div>
     </div>
 
@@ -2479,9 +2336,6 @@ function checkWarrantyAlerts() {
   });
   const dot = document.getElementById('alertDot');
   if (dot) dot.classList.toggle('show', expired.length > 0 || nearExpiry.length > 0);
-  // Sincroniza dot do sidebar desktop (Regra 8: uma fonte de verdade)
-  const dotSidebar = document.getElementById('alertDotSidebar');
-  if (dotSidebar) dotSidebar.classList.toggle('show', expired.length > 0 || nearExpiry.length > 0);
   const banner = document.getElementById('expiredBanner');
   const list = document.getElementById('expiredList');
   const title = document.getElementById('expiredTitle');
@@ -4219,9 +4073,6 @@ function applyLogoUI() {
   const logoImg  = document.getElementById('headerLogoImg');
   const printLogo = document.getElementById('printLogoImg');
   const printBg = document.getElementById('printLogoBg');
-  // Sidebar desktop logo (Regra 8: uma fonte de verdade)
-  const dsbLogoArea = document.getElementById('dsb-logo-area');
-  const dsbLogoImg  = document.getElementById('dsb-logo-img');
   if (appState.logoBase64) {
     const radius = (appState.logoMoldura === 'round') ? '50%' : '10px';
     if (pi) { pi.src = appState.logoBase64; pi.style.borderRadius = radius; }
@@ -4229,8 +4080,6 @@ function applyLogoUI() {
     if (rb) rb.style.display = 'flex';
     if (logoImg) { logoImg.src = appState.logoBase64; logoImg.style.borderRadius = (appState.logoMoldura === 'round') ? '50%' : '6px'; }
     if (logoArea) logoArea.classList.add('show');
-    if (dsbLogoImg) { dsbLogoImg.src = appState.logoBase64; dsbLogoImg.style.borderRadius = (appState.logoMoldura === 'round') ? '50%' : '6px'; }
-    if (dsbLogoArea) dsbLogoArea.style.display = 'flex';
     if (printLogo) { printLogo.src = appState.logoBase64; printLogo.style.display = 'block'; }
     if (printBg) {
       printBg.style.cssText = 'position:absolute;inset:0;pointer-events:none;opacity:0.05;background-image:url(' + appState.logoBase64 + ');background-size:40px 40px;background-repeat:repeat;display:block;';
@@ -4239,7 +4088,6 @@ function applyLogoUI() {
     if (pa) pa.style.display = 'none';
     if (rb) rb.style.display = 'none';
     if (logoArea) logoArea.classList.remove('show');
-    if (dsbLogoArea) dsbLogoArea.style.display = 'none';
     if (printLogo) printLogo.style.display = 'none';
     if (printBg) { printBg.style.display = 'none'; printBg.innerHTML = ''; }
   }
@@ -4641,12 +4489,6 @@ function switchMainTab(tab) {
   document.getElementById('bnav-orcamento').className = 'bottom-nav-btn' + (tab === 'orcamento' ? ' active' : '');
   document.getElementById('bnav-agenda').className    = 'bottom-nav-btn' + (tab === 'agenda'    ? ' active-agenda' : '');
   document.getElementById('bnav-historico').className = 'bottom-nav-btn' + (tab === 'historico' ? ' active-historico' : '');
-  // Sincroniza sidebar desktop (Regra 8: uma fonte de verdade — tab é o estado)
-  const _snavSuffix = {home:' active',orcamento:' active',agenda:' active-agenda',historico:' active-historico'};
-  ['home','orcamento','agenda','historico'].forEach(t => {
-    const el = document.getElementById('snav-' + t);
-    if (el) el.className = 'sidebar-nav-btn' + (t === tab ? (_snavSuffix[t] || ' active') : '');
-  });
   if (tab === 'home') { renderHomeScreen(); }
   if (tab === 'agenda') { agListarVisitas(); agListarClientes(); }
   if (tab === 'historico') { renderHistory(); checkWarrantyAlerts(); }
