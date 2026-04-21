@@ -1467,14 +1467,7 @@ input, select, textarea { font-size: 16px !important; font-family: var(--font-bo
     <div class="modal-handle"></div>
     <div class="modal-header">
       <div class="modal-title">⚙️ Ajustes</div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <button onclick="toggleDarkMode()" title="Alternar modo escuro/claro"
-          style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;font-weight:700;color:var(--txt2);font-family:var(--font-display);transition:all .2s;white-space:nowrap">
-          <span id="darkToggleIcon">🌙</span>
-          <span id="darkToggleLabel">Escuro</span>
-        </button>
-        <button class="modal-close" onclick="closeSettings()">✕</button>
-      </div>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
     </div>
 
     <div class="modal-scroll-body">
@@ -1529,6 +1522,16 @@ input, select, textarea { font-size: 16px !important; font-family: var(--font-bo
     </div>
 
     <div id="tab-negocio" class="settings-tab-content">
+      <div class="settings-section">
+        <div class="settings-section-title">🌙 Aparência</div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Modo Escuro</div>
+            <div class="toggle-sub">Salvo automaticamente</div>
+          </div>
+          <div id="darkToggle" class="toggle-switch" onclick="toggleDarkMode()"><div class="toggle-thumb"></div></div>
+        </div>
+      </div>
       <div class="settings-section">
         <div class="settings-section-title">💰 Financeiro</div>
         <div class="grid-3" style="margin-bottom:10px">
@@ -1635,11 +1638,17 @@ input, select, textarea { font-size: 16px !important; font-family: var(--font-bo
         </div>
       </div>
       <div class="settings-section" style="border:none">
-        <div class="settings-section-title">🎁 Parceiros</div>
-        <a href="https://beacons.ai/josetecinstalation/eletronicos" target="_blank" class="affiliate-btn">
-          🎁 OFERTAS DA SEMANA ↗
+        <div class="settings-section-title">🔗 Links Úteis</div>
+
+        <a href="https://collshp.com/jose_o_souza271?view=storefront" target="_blank" class="affiliate-btn">
+          🛒 FERRAMENTAS E MATERIAIS ↗
         </a>
-        <p style="font-size:11px;color:var(--txt3);text-align:center;margin-top:8px;line-height:1.5">Materiais e equipamentos com preços especiais para eletricistas</p>
+        <p style="font-size:11px;color:var(--txt3);text-align:center;margin-top:8px;margin-bottom:14px;line-height:1.5">Materiais e equipamentos com preços especiais para eletricistas</p>
+
+        <a href="https://eletricistapro.com.br/" target="_blank" class="affiliate-btn" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);box-shadow:0 4px 18px rgba(37,99,235,.35)">
+          📱 VER OUTROS APPS ↗
+        </a>
+        <p style="font-size:11px;color:var(--txt3);text-align:center;margin-top:8px;line-height:1.5">Todos os apps disponíveis para eletricistas</p>
       </div>
     </div>
 
@@ -3811,16 +3820,15 @@ function applyUIFromState() {
   applyLogoUI();
   const npEl = document.getElementById('nomePrestador');
   if (npEl) npEl.value = appState.prestadorPadrao || '';
+  const dt = document.getElementById('darkToggle');
+  if (dt) dt.classList.toggle('on', !!appState.darkMode);
   applyTheme();
 }
 
 function applyTheme() {
   document.documentElement.setAttribute('data-theme', appState.darkMode ? 'dark' : 'light');
-  // Sincroniza botão do header com o estado atual
-  const icon  = document.getElementById('darkToggleIcon');
-  const label = document.getElementById('darkToggleLabel');
-  if (icon)  icon.textContent  = appState.darkMode ? '☀️' : '🌙';
-  if (label) label.textContent = appState.darkMode ? 'Claro' : 'Escuro';
+  const dt = document.getElementById('darkToggle');
+  if (dt) dt.classList.toggle('on', appState.darkMode);
 }
 
 function toggleDarkMode() {
